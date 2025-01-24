@@ -1,3 +1,34 @@
+<?php
+require_once('db_config.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirm_password'];
+    
+
+    // Add validation for matching passwords
+    if ($password != $confirmPassword) {
+        echo "Passwords do not match!";
+    } else {
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO entries (name, email, Username, password) VALUES ('$username', '$email', '$username', '$password')";
+
+        if ($conn->query($sql) === TRUE) {
+            // Redirect to front.php upon successful registration
+            header("Location: login.php");
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,55 +65,97 @@
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     
-    <!-- Header -->
-    <header id="header" class="ex-2-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Sign Up</h1>
-                   <p>Fill out the form below to sign up for Brainify. Already signed up? Then just <a class="white" href="log-in.html">Log In</a></p> 
-                    <!-- Sign Up Form -->
-                    <div class="form-container">
-                        <form id="signUpForm" data-toggle="validator" data-focus="false">
+<header id="header" class="ex-2-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Sign Up</h1>
+                <p>Fill out the form below to sign up for Brainify. Already signed up? Then just <a class="white" href="log-in.html">Log In</a></p>
+                <div class="form-container">
+                    <form id="signUpForm" data-focus="false">
                         <div class="form-group">
-                                <input type="text" class="form-control-input" id="sname" required>
-                                <label class="label-control" for="sname">Name</label>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control-input" id="semail" required>
-                                <label class="label-control" for="semail">Email</label>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control-input" id="spassword" required>
-                                <label class="label-control" for="spassword">Password</label>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control-input" id="sconfirm password" required>
-                                <label class="label-control" for="spassword">Confirm Password</label>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="form-group checkbox">
-                                <input type="checkbox" id="sterms" value="Agreed-to-Terms" required>I agree with Brainify <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="form-control-submit-button">SIGN UP</button>
-                            </div>
-                            <div class="form-message">
-                                <div id="smsgSubmit" class="h3 text-center hidden"></div>
-                            </div>
-                        </form>
-                    </div> <!-- end of form container -->
-                    <!-- end of sign up form -->
+                            <input type="text" class="form-control-input" id="sname" name="name" required>
+                            <label class="label-control" for="sname">Name</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control-input" id="semail" name="email" required>
+                            <label class="label-control" for="semail">Email</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control-input" id="spassword" name="password" required>
+                            <label class="label-control" for="spassword">Password</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control-input" id="sconfirmpassword" name="confirm_password" required>
+                            <label class="label-control" for="sconfirmpassword">Confirm Password</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="sterms" name="terms" value="Agreed-to-Terms" required>
+                            I agree with Brainify <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms & Conditions</a>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="form-control-submit-button" id="signupBtn">SIGN UP</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="smsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </header> <!-- end of ex-header -->
-    <!-- end of header -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#signupBtn').click(function () {
+            var name = $('#sname').val().trim();
+            var email = $('#semail').val().trim();
+            var password = $('#spassword').val().trim();
+            var confirmPassword = $('#sconfirmpassword').val().trim();
+            var termsAccepted = $('#sterms').is(':checked');
+
+            if (name === '' || email === '' || password === '' || confirmPassword === '') {
+                $('#smsgSubmit').text('Please fill all fields').css('color', 'red').removeClass('hidden');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                $('#smsgSubmit').text('Passwords do not match').css('color', 'red').removeClass('hidden');
+                return;
+            }
+
+            if (!termsAccepted) {
+                $('#smsgSubmit').text('You must agree to the terms').css('color', 'red').removeClass('hidden');
+                return;
+            }
+
+            $.ajax({
+                url: 'signup.php',
+                type: 'POST',
+                data: { name: name, email: email, password: password },
+                success: function (response) {
+                    if (response.trim() === "success") {
+                        window.location.href = "welcome.php";
+                    } else {
+                        $('#smsgSubmit').text(response).css('color', 'red').removeClass('hidden');
+                    }
+                },
+                error: function () {
+                    $('#smsgSubmit').text('Error occurred. Please try again.').css('color', 'red').removeClass('hidden');
+                }
+            });
+        });
+    });
+</script>
+
 
 
     <!-- Scripts -->
