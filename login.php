@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="TheNextBigThing">
-    <meta name="author" content="Inovatik">
+    <meta name="description" content=""**Revolutionizing the Future: Our Submission for the KnowCode Hackathon**"">
+    <meta name="author" content="TheNextBigThing">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
 	<meta property="og:site_name" content="" /> <!-- website name -->
