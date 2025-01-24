@@ -44,14 +44,14 @@
                     <!-- Sign Up Form -->
                     <div class="form-container">
                         <form id="signUpForm" data-toggle="validator" data-focus="false">
-                            <div class="form-group">
-                                <input type="email" class="form-control-input" id="semail" required>
-                                <label class="label-control" for="semail">Email</label>
+                        <div class="form-group">
+                                <input type="text" class="form-control-input" id="sname" required>
+                                <label class="label-control" for="sname">Name</label>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control-input" id="sname" required>
-                                <label class="label-control" for="sname">Name</label>
+                                <input type="email" class="form-control-input" id="semail" required>
+                                <label class="label-control" for="semail">Email</label>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
@@ -59,8 +59,13 @@
                                 <label class="label-control" for="spassword">Password</label>
                                 <div class="help-block with-errors"></div>
                             </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control-input" id="sconfirm password" required>
+                                <label class="label-control" for="spassword">Password</label>
+                                <div class="help-block with-errors"></div>
+                            </div>
                             <div class="form-group checkbox">
-                                <input type="checkbox" id="sterms" value="Agreed-to-Terms" required>I agree with Tivo's <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
+                                <input type="checkbox" id="sterms" value="Agreed-to-Terms" required>I agree with Brainify <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
