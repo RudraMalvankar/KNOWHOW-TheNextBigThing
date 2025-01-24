@@ -119,7 +119,7 @@
 
     <div class="container">
         <h2>
-            <img src="logo-questionaire.png"  style="max-width: 100%; height: auto;">
+            <img src="images/logo-questionaire.png"  style="max-width: 100%; height: auto;">
         </h2>       
         <form method="post" action="result.php" onclick="questions2.php">
             <div class="questions-container">
@@ -170,6 +170,7 @@
                 </div>
                 <div class="form-group">
                     <label for="question3">3. I want to find out more about a tour that I am going on. I would:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question3[]" id="q3-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q3-option1">A. Look at details about the highlights and activities on the tour.</label>
@@ -187,9 +188,11 @@
                         <label class="form-check-label" for="q3-option4">D. Talk with the person who planned the tour or others who are going on the tour.</label>
                     </div>
                 </div>
+                </div>
             
                 <div class="form-group">
                     <label for="question4">4. When choosing a career or area of study, these are important for me:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question4[]" id="q4-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q4-option1">A. Applying my knowledge in real situations. </label>
@@ -207,9 +210,11 @@
                         <label class="form-check-label" for="q4-option4">D. Using words well in written communications.</label>
                     </div>
                 </div>
+                </div>
             
                 <div class="form-group">
                     <label for="question5">5. When I am learning I:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question5[]" id="q5-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q5-option1">A. Like to talk things through.</label>
@@ -227,9 +232,10 @@
                         <label class="form-check-label" for="q5-option4">D. Read books, articles and handouts. </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question6">6. I want to save more money and to decide between a range of options. I would:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question6[]" id="q6-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q6-option1">A. Consider examples of each option using my financial information. </label>
@@ -247,9 +253,10 @@
                         <label class="form-check-label" for="q6-option4">D. Talk with an expert about the options. </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question7">7. I want to learn how to play a new board game or card game. I would:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question7[]" id="q7-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q7-option1">A. Watch others play the game before joining in. </label>
@@ -267,10 +274,11 @@
                         <label class="form-check-label" for="q7-option4">D. Read the instructions. </label>
                     </div>
                 </div>
-            
+            </div>
                 
                 <div class="form-group">
                     <label for="question8">8. I have a problem with my heart. I would prefer that the doctor:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question8[]" id="q8-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q8-option1">A. Gave me something to read to explain what was wrong.  </label>
@@ -288,9 +296,10 @@
                         <label class="form-check-label" for="q8-option4">D. Showed me a diagram of what was wrong.  </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question9">9. I want to learn to do something new on a computer. I would:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question9[]" id="q9-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q9-option1">A. Read the written instructions that came with the program. </label>
@@ -308,9 +317,10 @@
                         <label class="form-check-label" for="q9-option4">D. Follow the diagrams in a book.  </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question10">10. When learning from the Internet I like:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question10[]" id="q10-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q10-option1">A. Videos showing how to do or make things. </label>
@@ -328,9 +338,10 @@
                         <label class="form-check-label" for="q10-option4">D. Audio channels where I can listen to podcasts or interviews.   </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question11">11. I want to learn about a new project. I would ask for:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question11[]" id="q11-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q11-option1">A. Diagrams to show the project stages with charts of benefits and costs. </label>
@@ -348,10 +359,11 @@
                         <label class="form-check-label" for="q11-option4">D. Examples where the project has been used successfully.  </label>
                     </div>
                 </div>
-            
+            </div>
                 
                 <div class="form-group">
                     <label for="question12">12. I want to learn how to take better photos. I would:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question12[]" id="q12-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q12-option1">A. Ask questions and talk about the camera and its features. </label>
@@ -369,9 +381,10 @@
                         <label class="form-check-label" for="q12-option4">D. Use examples of good and poor photos showing how to improve them.  </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question13">13. I prefer a presenter or a teacher who uses:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question13[]" id="q13-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q13-option1">A. Demonstrations, models or practical sessions.  </label>
@@ -389,9 +402,10 @@
                         <label class="form-check-label" for="q13-option4">D. Diagrams, charts, maps or graphs.  </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question14">14. I have finished a competition or test and I would like some feedback. I would like to have feedback:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question14[]" id="q14-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q14-option1">A. Using examples from what I have done.  </label>
@@ -409,9 +423,10 @@
                         <label class="form-check-label" for="q14-option4">D. Using graphs showing what I achieved.  </label>
                     </div>
                 </div>
-            
+            </div>
                 <div class="form-group">
                     <label for="question15">15. I want to find out about a house or an apartment. Before visiting it I would want:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question15[]" id="q15-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q15-option1">A. To view a video of the property.  </label>
@@ -429,9 +444,10 @@
                         <label class="form-check-label" for="q15-option4">D. A plan showing the rooms and a map of the area.  </label>
                     </div>
                 </div>
-                
+            </div>    
                 <div class="form-group">
                     <label for="question16">16. I want to assemble a wooden table that came in parts (kitset). I would learn best from:</label>
+                    <div class="options-container">
                     <div class="form-check">
                         <input type="checkbox" name="question16[]" id="q16-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
                         <label class="form-check-label" for="q16-option1">A. Diagrams showing each stage of the assembly.  </label>
@@ -450,7 +466,7 @@
             </label>
                     </div>
                 </div>
-            
+            </div>
                 
                 <center><button style="
                     border: none; 
