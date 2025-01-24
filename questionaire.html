@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The VARK Questionnaire</title>
+    <style>
+        body {
+            background-color: #5F4DEE; 
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            background-color: #ffffff; 
+            padding: 50px;
+            border-radius: 10px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); 
+            max-width: 95%; /* Adjusted width */
+            width: 1200px; /* Increased width for larger layout */
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px; /* Increased font size for the title */
+        }
+        
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px; /* Spacing between questions */
+        }
+
+        .form-group {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 15px;
+            font-size: 18px; /* Larger font for questions */
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px; /* Increased gap for better spacing */
+            align-items: center;
+        }
+        
+        .form-check {
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: background-color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100px; /* Increased height for more space */
+            box-sizing: border-box;
+            font-size: 14px !important;
+        }
+
+        .form-check input {
+            margin-right: 15px;
+        }
+
+        .form-check.highlighted {
+            background-color: #e6f9e6;
+            border-color: #57c757;
+        }
+
+        .form-check:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        .form-check-label {
+            font-size: 14px; /* Reduced font size for the options, smaller than questions */
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+	/* Media query for mobile devices */
+@media (max-width: 768px) {
+    /* Make the options stack vertically on smaller screens */
+    .options-container {
+        display: block; /* Stack the checkboxes vertically */
+        gap: 20px; /* Reduced gap for better spacing */
+    }
+
+    /* Override specific CSS for smaller screens */
+    .form-check {
+        height: auto; /* Adjust height */
+        padding: 15px; /* Reduced padding */
+    }
+
+    /* Hide elements with 'override' class if you have any */
+    .override {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <a href="?logout=true" class="btn btn-danger logout-button">Logout</a>
+    <br>
+
+    <div class="container">
+        <h2>
+            <img src="logo-questionaire.png"  style="max-width: 100%; height: auto;">
+        </h2>       
+        <form method="post" action="result.php" onclick="questions2.php">
+            <div class="questions-container">
+                <!-- Question 1 -->
+                <div class="form-group">
+                    <label for="question1">1. I need to find the way to a shop that a friend has recommended. I would:</label>
+                    <div class="options-container">
+                        <div class="form-check">
+                            <input type="checkbox" name="question1[]" id="q1-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q1-option1">A. Find out where the shop is in relation to somewhere I know.</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="question1[]" id="q1-option2" class="form-check-input" value="option2" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q1-option2">B. Ask my friend to tell me the directions.</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="question1[]" id="q1-option3" class="form-check-input" value="option3" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q1-option3">C. Write down the street directions I need to remember.</label>
+                        </div> 
+                        <div class="form-check">
+                            <input type="checkbox" name="question1[]" id="q1-option4" class="form-check-input" value="option4" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q1-option4">D. Use a map.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="form-group">
+                    <label for="question2">2. A website has a video showing how to make a special graph or chart. There is a person speaking, some lists and words describing what to do and some diagrams. I would learn most from:</label>
+                    <div class="options-container">
+                        <div class="form-check">
+                            <input type="checkbox" name="question2[]" id="q2-option1" class="form-check-input" value="option1" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q2-option1">A. Seeing the diagrams.</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="question2[]" id="q2-option2" class="form-check-input" value="option2" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q2-option2">B. Listening.</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="question2[]" id="q2-option3" class="form-check-input" value="option3" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q2-option3">C. Reading the words.</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="question2[]" id="q2-option4" class="form-check-input" value="option4" onclick="toggleHighlight(this)">
+                            <label class="form-check-label" for="q2-option4">D. Watching the actions.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more questions here in the same format -->
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleHighlight(checkbox) {
+            const parent = checkbox.parentElement;
+            if (checkbox.checked) {
+                parent.classList.add("highlighted");
+            } else {
+                parent.classList.remove("highlighted");
+            }
+        }
+    </script>
+</body>
+</html>
