@@ -61,7 +61,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control-input" id="sconfirm password" required>
-                                <label class="label-control" for="spassword">Password</label>
+                                <label class="label-control" for="spassword">Confirm Password</label>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group checkbox">
