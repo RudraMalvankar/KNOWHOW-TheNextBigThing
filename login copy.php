@@ -1,9 +1,9 @@
 <?php
     session_start();
-    if (isset($_SESSION['username'])) {
-        header("Location: questions.php");
-        exit();
-    }
+    // if (isset($_SESSION['username'])) {
+    //     header("Location: questions.php");
+    //     exit();
+    // }
 
     require_once('db_config.php');
 
