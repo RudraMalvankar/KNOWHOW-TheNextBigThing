@@ -1,9 +1,9 @@
 <?php
     session_start();
-    if (isset($_SESSION['username'])) {
-        header("Location: questions.php");
-        exit();
-    }
+    // if (isset($_SESSION['username'])) {
+    //     header("Location: questions.php");
+    //     exit();
+    // }
 
     require_once('db_config.php');
 
@@ -22,7 +22,7 @@
             $username = $row['username'];
             $password = $row['password'];
         
-            header("Location: questions.php");
+            header("Location:  questions.php");
             
             exit();
         } else {
@@ -33,53 +33,46 @@
         $conn->close();
     }
     ?>
-<html>
 
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=0.9">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #bef6b4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .form-container {
-            width: 400px;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brainify Learning Login">
+    <meta name="author" content="TheNextBigThing">
+    <title>Brainify Learning - Log In</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="icon" href="Component 1.png">
 </head>
-
 <body>
-   
-
-    <div class="form-container">
-        <h2 class="text-center">Login</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="username">username:</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter a username">
+    <header id="header" class="ex-2-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Log In</h1>
+                    <p>You don't have an account? Then please <a class="white" href="registration.php">Sign Up</a></p>
+                    <div class="form-container">
+                        <form id="logInForm" method="POST" action="login.php">
+                            <div class="form-group">
+                                <input type="text" class="form-control-input" id="username" name="username" required>
+                                <label class="label-control" for="username">Username</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control-input" id="password" name="password" required>
+                                <label class="label-control" for="password">Password</label>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control-submit-button">LOG IN</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password"
-                    placeholder="Enter a password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
-        <p class="text-center mt-3">Don't have an account? <a href="register.php">Sign up</a></p>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </div>
+    </header>
 </body>
-
 </html>

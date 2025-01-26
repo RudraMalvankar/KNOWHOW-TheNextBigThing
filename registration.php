@@ -1,38 +1,36 @@
 <?php
-require_once('db_config.php'); // Include the database connection
+require_once('db_config.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm_password'];
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $confirmPassword = trim($_POST['confirm_password']);
 
-    // Validate passwords match
+    // Check if passwords match
     if ($password != $confirmPassword) {
-        // Display an error message for password mismatch
-        echo "<script>alert('Passwords do not match!');</script>";
+        echo "Passwords do not match!";
     } else {
-        // Hash the password before storing it (security best practice)
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Hash the password
 
-        // Prepare the SQL query to insert the user data into the database
-        $sql = "INSERT INTO entries (name, email, password) VALUES ('$name', '$email', '$hashedPassword')";
+        $sql = "INSERT INTO entries (Username, Email, Password) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $username, $email, $password);
 
-        if ($conn->query($sql) === TRUE) {
-            // If successful, redirect to login page
-            echo "<script>alert('Registration successful! Please log in.'); window.location.href='login.php';</script>";
+        if ($stmt->execute()) {
+            header("Location:login.php ");
+            exit();
         } else {
-            // Error inserting the data, show the error message
-            echo "<script>alert('Error: " . $conn->error . "');</script>";
+            echo "Error: " . $stmt->error;
         }
-    }
-    
-    // Close the DB connection
-    $conn->close();
-}
-?>
 
+        $stmt->close();
+    }
+}
+
+
+$conn->close();
+?>
 
 
 <!DOCTYPE html>
@@ -50,43 +48,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <header id="header" class="ex-2-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="margin-top: -120px;">
                 <h1>Sign Up</h1>
-                <p>Fill out the form below to sign up for Brainify. Already signed up? Then just <a class="white" href="log-in.html">Log In</a></p>
+                <p>Fill out the form below to sign up for Brainify. Already signed up? Then just <a class="white" href="login.php">Log In</a></p>
                 <div class="form-container">
-                    <form id="signUpForm" method="POST" action="registration.php">
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="sname" name="name" required>
-                            <label class="label-control" for="sname">Name</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control-input" id="semail" name="email" required>
-                            <label class="label-control" for="semail">Email</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control-input" id="spassword" name="password" required>
-                            <label class="label-control" for="spassword">Password</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control-input" id="sconfirmpassword" name="confirm_password" required>
-                            <label class="label-control" for="sconfirmpassword">Confirm Password</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group checkbox">
-                            <input type="checkbox" id="sterms" name="terms" value="Agreed-to-Terms" required>
-                            I agree with Brainify <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms & Conditions</a>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="form-control-submit-button">SIGN UP</button>
-                        </div>
-                        <div class="form-message">
-                            <div id="smsgSubmit" class="h3 text-center hidden"></div>
-                        </div>
-                    </form>
+                <form id="registrationForm" method="POST" action="registration.php">
+    <div class="form-group">
+        <input type="text" class="form-control-input" id="username" name="username" required>
+        <label class="label-control" for="username">Username</label>
+    </div>
+    <div class="form-group">
+        <input type="email" class="form-control-input" id="email" name="email" required>
+        <label class="label-control" for="email">Email</label>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control-input" id="password" name="password" required>
+        <label class="label-control" for="password">Password</label>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control-input" id="confirm_password" name="confirm_password" required>
+        <label class="label-control" for="confirm_password">Confirm Password</label>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="form-control-submit-button">SIGN UP</button>
+    </div>
+</form>
+
                 </div>
             </div>
         </div>

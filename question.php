@@ -207,9 +207,10 @@ if ($result && $result->num_rows > 0) {
    
 
     <div class="container">
-    <h2><?php 
-    echo "The VARK Questionnaire <br> How Do I Learn Best? "; ?></h2>
-    <form method="post" action="result.php" onclick="questions2.php">
+    <h2>
+               <img src="images/logo-questionaire.png"  style="max-width: 100%; height: auto; padding: 10px; margin: 0 auto; display: block; padding-bottom: 20px;">
+
+    <form method="post" action="result.php" onclick="questionaire2.php">
     <div class="questions-container">
                 <!-- Question 1 -->
                 <div class="form-group">

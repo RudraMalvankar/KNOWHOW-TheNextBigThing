@@ -16,11 +16,11 @@ $newbraintype = null;
 $newname = null;
 $newbrainnote = null;
 
-// session_start();
-// if (!isset($_SESSION['username'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
 
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -254,12 +254,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $newquery = "SELECT `Name`, `Email`, `Username`, `Preference`, `Note`, `Brainscore`, `Braintype` , 'Brainnote' FROM entries WHERE Username = '$usernamee'";
+        $newquery = "SELECT  `Email`, `Username`, `Preference`, `Note`, `Brainscore`, `Braintype` , 'Brainnote' FROM entries WHERE Username = '$usernamee'";
         $newresultss = $conn->query($newquery);
         if ($newresultss->num_rows > 0) {
             $row = $newresultss->fetch_assoc();
             $newnote = $row['Note'];
-            $newname = $row['Name'];
+        
             $newusername = $row['Username'];
             $newpreference = $row['Preference'];
             $newbraintype = $row['Braintype'];
