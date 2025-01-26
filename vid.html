@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2eff4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4e3bb1;
+            color: white;
+            padding: 40px 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        .logo-image {
+            height: 40px;
+            max-width: 60%;
+            object-fit: contain;
+        }
+
+        .logout {
+            background-color: #f25f4c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+            max-width: 120px;
+            overflow: hidden;
+        }
+
+        .logout:hover {
+            background-color: #d94a38;
+        }
+
+        /* Search Container */
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .brain-image {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 100px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        /* Search Bar Container */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        /* Input Field */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        /* Search Button */
+        .search-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-left: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Results Container (Initially hidden) */
+        #search-results {
+            display: none;
+            width: 50%;
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .result-url {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .search-bar {
+                width: 80%;
+            }
+
+            .brain-image {
+                max-width: 90%;
+            }
+
+            #search-results {
+                width: 80%;
+            }
+
+            .logout {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="images/logo.png" class="logo-image" alt="Logo">
+        <a href="user_profile.php" class="logout">
+            MY PROFILE
+        </a>
+    </div>
+    
+    <!-- Search Bar Container -->
+    <div class="search-container">
+        <img src="images/logo-brain search engine.png" class="brain-image" alt="Brain Image">
+        <form id="search-form" class="search-bar">
+            <input type="text" id="search-input" placeholder="Search here..." required>
+            <button type="submit" class="search-button">🔍</button>
+        </form>
+    </div>
+
+    <!-- Search Results Container -->
+    <div id="search-results"></div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById('search-input').value.trim();
+            if (searchQuery !== '') {
+                fetchResults(searchQuery);
+            } else {
+                alert('Please enter a search query.');
+            }
+        });
+
+        function fetchResults(query) {
+            var searchUrl = 'https://www.googleapis.com/customsearch/v1?q=' + encodeURIComponent(query) + '+site:youtube.com&cx=74d16a46bfd144706&key=AIzaSyDa2AaogbLPCR5bxHSN6o3SOYNX6WHkf6M';
+            
+            fetch(searchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data.items);
+                })
+                .catch(error => {
+                    console.error('Error fetching search results:', error);
+                });
+        }
+
+        function displayResults(results) {
+            const searchResultsContainer = document.getElementById('search-results');
+            searchResultsContainer.innerHTML = '';
+
+            // Display results if any
+            if (results && results.length > 0) {
+                results.forEach(result => {
+                    const title = result.title;
+                    const url = result.link;
+
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+
+                    const resultTitle = document.createElement('h3');
+                    resultTitle.classList.add('result-title');
+                    resultTitle.innerHTML = `<a href="${url}" target="_blank">${title}</a>`;
+
+                    const resultUrl = document.createElement('p');
+                    resultUrl.classList.add('result-url');
+                    resultUrl.textContent = url;
+
+                    resultItem.appendChild(resultTitle);
+                    resultItem.appendChild(resultUrl);
+                    searchResultsContainer.appendChild(resultItem);
+                });
+
+                // Show the results container
+                searchResultsContainer.style.display = 'block';
+            } else {
+                searchResultsContainer.innerHTML = 'No results found.';
+                searchResultsContainer.style.display = 'block'; // Show the container even if no results
+            }
+        }
+    </script>
+</body>
+</html>

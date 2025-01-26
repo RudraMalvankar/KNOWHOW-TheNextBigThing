@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2eff4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4e3bb1;
+            color: white;
+            padding: 20px 40px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        .logo-image {
+            height: 40px;
+            max-width: 50%;
+            object-fit: contain;
+        }
+
+        .logout {
+            background-color: #f25f4c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            background-color: #d94a38;
+        }
+
+        /* Search Container */
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .brain-image {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 100px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .search-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-left: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        #search-results {
+            margin-top: 20px;
+            width: 50%;
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .result-url {
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .search-bar {
+                width: 80%;
+            }
+
+            .brain-image {
+                max-width: 90%;
+            }
+
+            #search-results {
+                width: 80%;
+            }
+
+            .logout {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="images/logo.png" class="logo-image" alt="Logo">
+        <button class="logout">LOGOUT</button>
+    </div>
+
+    <div class="search-container">
+        <img src="images/logo-brain search engine.png" class="brain-image" alt="Brain Image">
+        <form id="search-form" class="search-bar">
+            <input type="text" id="search-input" placeholder="Search here..." required>
+            <button type="submit" class="search-button">🔍</button>
+        </form>
+        <div id="search-results"></div>
+    </div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var searchQuery = document.getElementById('search-input').value.trim();
+            if (searchQuery !== '') {
+                fetchResults(searchQuery);
+            } else {
+                alert('Please enter a search query.');
+            }
+        });
+
+        function fetchResults(query) {
+            var searchUrl = 'https://www.googleapis.com/customsearch/v1?q=' + encodeURIComponent(query) + '+site:wikipedia.org&cx=74d16a46bfd144706&key=AIzaSyDa2AaogbLPCR5bxHSN6o3SOYNX6WHkf6M';
+
+            fetch(searchUrl)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data.items);
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+            });
+        }
+
+        function displayResults(results) {
+            var searchResultsContainer = document.getElementById('search-results');
+            searchResultsContainer.innerHTML = '';
+
+            if (results && results.length > 0) {
+                results.forEach(result => {
+                    var title = result.title;
+                    var url = result.link;
+
+                    var resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+
+                    var resultTitle = document.createElement('h3');
+                    resultTitle.classList.add('result-title');
+                    resultTitle.innerHTML = '<a href="' + url + '" target="_blank">' + title + '</a>';
+
+                    var resultUrl = document.createElement('p');
+                    resultUrl.classList.add('result-url');
+                    resultUrl.textContent = url;
+
+                    resultItem.appendChild(resultTitle);
+                    resultItem.appendChild(resultUrl);
+                    searchResultsContainer.appendChild(resultItem);
+                });
+            } else {
+                searchResultsContainer.innerHTML = 'No results found.';
+            }
+        }
+    </script>
+</body>
+</html>
